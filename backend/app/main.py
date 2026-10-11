@@ -39,8 +39,7 @@ class Cart(BaseModel):
 @app.get("/health")
 def health() -> dict:
     """Used by DevPilot (and any load balancer) to see if the shop is alive."""
-    # BUG (planted): "maintenance_mode" is not in settings.json, so every health check crashes (HTTP 500)
-    if SETTINGS["maintenance_mode"]:
+    if SETTINGS.get("maintenance_mode", False):     # missing setting = not in maintenance
         return {"status": "maintenance", "version": VERSION}
     return {"status": "ok", "version": VERSION, "store": SETTINGS["store_name"]}
 
