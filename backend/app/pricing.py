@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from app.discounts import seasonal_percent
+
 DISCOUNTS = {"WELCOME10": 10}   # code -> percent off
 
 
@@ -12,7 +14,7 @@ def subtotal(lines: list[tuple[int, int]]) -> int:
 def discount_percent(code: str | None) -> int:
     if not code:
         return 0
-    return DISCOUNTS.get(code.strip().upper(), 0)
+    return DISCOUNTS.get(code.strip().upper(), 0) or seasonal_percent(code)
 
 
 def total(lines: list[tuple[int, int]], tax_rate: float, code: str | None = None) -> dict:
