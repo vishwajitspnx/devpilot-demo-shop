@@ -1,0 +1,21 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check data files are valid JSON
+        run: for f in data/*.json; do python -m json.tool "$f" > /dev/null || exit 1; done
+      - name: Install
+        run: pip install -r backend/requirements-dev.txt
+      - name: Unit tests
+        working-directory: backend
+        run: pytest -q

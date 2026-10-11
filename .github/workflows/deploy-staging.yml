@@ -1,0 +1,17 @@
+# Demo only: there is no real server. This shows where a deploy to staging would happen.
+name: Deploy staging
+on:
+  workflow_dispatch:
+  push:
+    branches: [staging]
+permissions:
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the image (same image for every stage)
+        run: docker build --target app -t demo-shop:${{ github.sha }} .
+      - name: Deploy
+        run: echo "Demo project - a real pipeline would deploy demo-shop:${{ github.sha }} to staging here."

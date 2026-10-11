@@ -1,0 +1,13 @@
+# Run one copy of the shop. Several copies (one per "stage") can run side by side:
+#   docker compose -p shop-prod up -d --build                      -> http://127.0.0.1:8090
+#   SHOP_PORT=8091 docker compose -p shop-dev up -d --build        -> http://127.0.0.1:8091
+name: demo-shop
+services:
+  shop:
+    build: { context: ., target: app }
+    image: devpilot-demo-shop:local
+    ports: ["127.0.0.1:${SHOP_PORT:-8090}:8000"]
+    restart: unless-stopped
+  test:
+    profiles: [test]
+    build: { context: ., target: test }

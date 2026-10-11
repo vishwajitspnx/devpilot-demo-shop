@@ -1,0 +1,6 @@
+[
+  {"id": "mug", "name": "Coffee mug", "price": 1200, "image": "☕"},
+  {"id": "tee", "name": "T-shirt", "price": 2500, "image": "👕"},
+  {"id": "cap", "name": "Baseball cap", "price": 1800, "image": "🧢"},
+  {"id": "sticker", "name": "Sticker pack", "price": 450, "image": "🏷️"}
+]
